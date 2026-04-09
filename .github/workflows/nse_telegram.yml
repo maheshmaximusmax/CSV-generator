@@ -2,24 +2,17 @@ name: NSE CSV to Telegram
 
 on:
   schedule:
-    # Default fallback: 04:00 UTC = 09:30 IST, Mon-Fri
+    # 04:00 UTC = 09:30 IST (Mon-Fri)
     - cron: "0 4 * * 1-5"
   workflow_dispatch:
 
 jobs:
-  send_csv:
+  nse-csv-send:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      # Editable from GitHub UI (Settings > Secrets and variables > Actions > Variables)
-      # Example: 0 4 * * 1-5
-      SCHEDULE_CRON: ${{ vars.SCHEDULE_CRON }}
-      TZ_NAME: ${{ vars.TZ_NAME }}
+    timeout-minutes: 20
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -30,10 +23,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Print active schedule info
-        run: |
-          echo "SCHEDULE_CRON=${SCHEDULE_CRON}"
-          echo "TZ_NAME=${TZ_NAME}"
-
-      - name: Run bot
+      - name: Run NSE CSV sender
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python nse_to_telegram.py
