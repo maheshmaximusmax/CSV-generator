@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>NSE CSV Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>NSE CSV Telegram Dashboard</h1>
+    <p>Logged in as: <b>{{ user }}</b></p>
+
+    <div class="card">
+      <h2>Schedule Settings</h2>
+      <form method="post" action="/save">
+        <label>Run Time (HH:MM)</label>
+        <input type="time" name="run_time" value="{{ settings.run_time }}" required />
+
+        <label>Timezone</label>
+        <input type="text" name="timezone" value="{{ settings.timezone }}" required />
+
+        <label class="checkbox">
+          <input type="checkbox" name="enabled" {% if settings.enabled %}checked{% endif %} />
+          Enabled
+        </label>
+
+        <button type="submit">Save Settings</button>
+      </form>
+
+      <p><b>Next Run:</b> {{ next_run if next_run else "Disabled / Not scheduled" }}</p>
+    </div>
+
+    <div class="card">
+      <h2>Manual Trigger</h2>
+      <form method="post" action="/run-now">
+        <button type="submit" class="run-btn">Run Now (Download + Send CSV)</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Recent Logs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time (UTC)</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr>
+            <td>{{ log.created_at }}</td>
+            <td>{{ log.run_type }}</td>
+            <td>{{ log.status }}</td>
+            <td>{{ log.message }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
