@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSE CSV Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 NSE CSV Telegram Dashboard</h1>
+            <p class="subtitle">Set time, download, and send CSV automatically</p>
+        </header>
+
+        <div class="card">
+            <h2>⏰ Schedule Settings</h2>
+            <form id="settingsForm">
+                <div class="form-group">
+                    <label for="runTime">Run Time (IST)</label>
+                    <input type="time" id="runTime" required>
+                    <small>Format: HH:MM (e.g., 09:30)</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="enabledToggle" checked>
+                        <span>Enable Daily Schedule</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">💾 Save Settings</button>
+            </form>
+
+            <div id="settingsStatus" class="status-message"></div>
+            <div id="nextRunInfo" class="info-box">
+                <strong>Next Run:</strong> <span id="nextRunTime">Loading...</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Manual Trigger</h2>
+            <button id="runNowBtn" class="btn btn-success">▶️ Run Now (Download & Send CSV)</button>
+            <div id="runNowStatus" class="status-message"></div>
+        </div>
+
+        <div class="card">
+            <h2>📋 Recent Job Logs</h2>
+            <div id="logsContainer" class="logs-table">
+                <p class="loading">Loading logs...</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Auto-refresh every 30 seconds | Backend: <span id="backendStatus" class="status-badge">Checking...</span></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
