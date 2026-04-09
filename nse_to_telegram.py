@@ -8,7 +8,6 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-
 NSE_PAGE = "https://www.nseindia.com/market-data/live-market-indices"
 
 
@@ -38,7 +37,6 @@ def create_nse_session() -> requests.Session:
 
 
 def find_csv_url(session: requests.Session) -> str:
-    # warm-up for cookies
     home = session.get("https://www.nseindia.com/", timeout=30)
     home.raise_for_status()
     time.sleep(1)
@@ -56,7 +54,7 @@ def find_csv_url(session: requests.Session) -> str:
     if m:
         return m.group(0)
 
-    raise RuntimeError("Could not find CSV link on NSE page. NSE page structure may have changed.")
+    raise RuntimeError("Could not find CSV link on NSE page. NSE may have changed page structure.")
 
 
 def download_csv(session: requests.Session, csv_url: str, out_file: str) -> None:
@@ -98,7 +96,7 @@ def main():
     download_csv(session, csv_url, out_file)
     print(f"Downloaded file: {out_file}")
 
-    caption = f"NSE CSV ({datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC)"
+    caption = f"NSE CSV sent at {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC"
     send_to_telegram(bot_token, chat_id, out_file, caption)
     print("CSV sent to Telegram successfully.")
 
