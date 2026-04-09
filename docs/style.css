@@ -12,6 +12,40 @@ body {
     color: #333;
 }
 
+/* ── Setup Modal ──────────────────────────────────────────────────────────── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-box h2 {
+    margin-bottom: 10px;
+    color: #667eea;
+}
+
+.modal-box p {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -21,6 +55,7 @@ header {
     text-align: center;
     color: white;
     margin-bottom: 40px;
+    position: relative;
 }
 
 header h1 {
@@ -33,6 +68,25 @@ header .subtitle {
     opacity: 0.95;
 }
 
+.btn-settings-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.2s;
+}
+
+.btn-settings-link:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
 .card {
     background: white;
     border-radius: 12px;
@@ -59,6 +113,7 @@ header .subtitle {
     font-size: 1.4em;
 }
 
+/* ── Form ─────────────────────────────────────────────────────────────────── */
 .form-group {
     margin-bottom: 16px;
 }
@@ -71,7 +126,9 @@ header .subtitle {
 }
 
 .form-group input[type="time"],
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 2px solid #e0e0e0;
@@ -81,7 +138,9 @@ header .subtitle {
 }
 
 .form-group input[type="time"]:focus,
-.form-group input[type="text"]:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus,
+.form-group input[type="password"]:focus {
     outline: none;
     border-color: #667eea;
 }
@@ -106,6 +165,7 @@ header .subtitle {
     cursor: pointer;
 }
 
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
 .btn {
     padding: 12px 24px;
     border: none;
@@ -151,6 +211,7 @@ header .subtitle {
     transform: none !important;
 }
 
+/* ── Status messages ─────────────────────────────────────────────────────── */
 .status-message {
     margin-top: 12px;
     padding: 12px;
@@ -181,6 +242,7 @@ header .subtitle {
     border: 1px solid #bee5eb;
 }
 
+/* ── Info box ────────────────────────────────────────────────────────────── */
 .info-box {
     background: #f0f4ff;
     padding: 12px;
@@ -189,6 +251,7 @@ header .subtitle {
     border-left: 4px solid #667eea;
 }
 
+/* ── Logs table ──────────────────────────────────────────────────────────── */
 .logs-table {
     overflow-x: auto;
 }
@@ -233,6 +296,7 @@ header .subtitle {
     color: #721c24;
 }
 
+/* ── Badge ───────────────────────────────────────────────────────────────── */
 .status-badge {
     display: inline-block;
     padding: 4px 12px;
@@ -251,6 +315,7 @@ header .subtitle {
     color: #721c24;
 }
 
+/* ── Misc ────────────────────────────────────────────────────────────────── */
 .loading {
     text-align: center;
     color: #999;
@@ -265,6 +330,7 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
     header h1 {
         font-size: 1.8em;
@@ -277,4 +343,11 @@ footer {
     .btn {
         padding: 10px 16px;
     }
+
+    .btn-settings-link {
+        position: static;
+        display: block;
+        margin-top: 10px;
+    }
 }
+
