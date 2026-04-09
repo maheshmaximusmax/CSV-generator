@@ -7,10 +7,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Setup Modal (shown on first visit) -->
+    <div id="setupModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <h2>⚙️ Dashboard Setup</h2>
+            <p>Enter your backend URL and API key to get started.<br>
+               You only need to do this once (saved in your browser).</p>
+            <div class="form-group">
+                <label for="setupUrl">Backend URL</label>
+                <input type="url" id="setupUrl" placeholder="https://your-app.onrender.com" required>
+                <small>The Render URL of your deployed backend</small>
+            </div>
+            <div class="form-group">
+                <label for="setupKey">API Key</label>
+                <input type="password" id="setupKey" placeholder="Your API_KEY secret">
+                <small>Leave blank if you did not set API_KEY on the backend</small>
+            </div>
+            <button class="btn btn-primary" id="setupSaveBtn">💾 Save &amp; Connect</button>
+            <div id="setupError" class="status-message error" style="display:none;"></div>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="display:none;">
         <header>
             <h1>📊 NSE CSV Telegram Dashboard</h1>
             <p class="subtitle">Set time, download, and send CSV automatically</p>
+            <button class="btn-settings-link" id="changeConfigBtn" title="Change backend URL / API key">⚙️ Config</button>
         </header>
 
         <div class="card">
@@ -19,7 +41,7 @@
                 <div class="form-group">
                     <label for="runTime">Run Time (IST)</label>
                     <input type="time" id="runTime" required>
-                    <small>Format: HH:MM (e.g., 09:30)</small>
+                    <small>Format: HH:MM (e.g., 09:30) — saved in IST</small>
                 </div>
 
                 <div class="form-group">
@@ -40,7 +62,7 @@
 
         <div class="card">
             <h2>🚀 Manual Trigger</h2>
-            <button id="runNowBtn" class="btn btn-success">▶️ Run Now (Download & Send CSV)</button>
+            <button id="runNowBtn" class="btn btn-success">▶️ Run Now (Download &amp; Send CSV)</button>
             <div id="runNowStatus" class="status-message"></div>
         </div>
 
